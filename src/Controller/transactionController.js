@@ -21,12 +21,12 @@ export async function bankStatement(req, res) {
   try {
     const transactionList = await db
       .collection("transactions")
-      .findMany({ user_id: user._id })
+      .find({ user_id: user._id })
       .toArray();
     delete user.password;
     console.log(transactionList);
 
-    res.status(202).send(transactionList, user);
+    res.status(202).send({ transactionList, user });
   } catch (error) {
     res.status(500).send(error);
   }
